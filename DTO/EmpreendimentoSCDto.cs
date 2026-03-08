@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CRUDEmpreendimentosSC.Enums;
 
 namespace CRUDEmpreendimentosSC.DTO
 {
@@ -14,7 +15,7 @@ namespace CRUDEmpreendimentosSC.DTO
         public string Municipio { get; set; }
 
         [Required]
-        public string Segmento { get; set; }
+        public Segmento Segmento { get; set; }
 
         [Required]
         [EmailAddress]
