@@ -1,5 +1,6 @@
 ﻿using CRUDEmpreendimentosSC.Data;
 using CRUDEmpreendimentosSC.DTO;
+using CRUDEmpreendimentosSC.Enums;
 using CRUDEmpreendimentosSC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -43,12 +44,21 @@ namespace CRUDEmpreendimentosSC.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(EmpreendimentoSCDto dto)
         {
+
+            if (!Enum.IsDefined(typeof(Segmento), dto.Segmento))
+            {
+                return BadRequest(new
+                {
+                    mensagem = "Segmento inválido. Valores permitidos: 1-Tecnologia, 2-Comércio, 3-Indústria, 4-Serviços, 5-Agronegócio."
+                });
+            }
+
             var empreendimento = new EmpreendimentoSC
             {
                 NomeEmpreendimento = dto.NomeEmpreendimento,
                 NomeEmpreendedor = dto.NomeEmpreendedor,
                 Municipio = dto.Municipio,
-                Segmento = dto.Segmento,
+                Segmento = (Segmento)dto.Segmento,
                 Email = dto.Email,
                 Status = dto.Status,
                 Telefone = dto.Telefone,
@@ -73,10 +83,18 @@ namespace CRUDEmpreendimentosSC.Controllers
             if (empreendimento == null)
                 return NotFound();
 
+            if (!Enum.IsDefined(typeof(Segmento), dto.Segmento))
+            {
+                return BadRequest(new
+                {
+                    mensagem = "Segmento inválido. Valores permitidos: 1-Tecnologia, 2-Comércio, 3-Indústria, 4-Serviços, 5-Agronegócio."
+                });
+            }
+
             empreendimento.NomeEmpreendimento = dto.NomeEmpreendimento;
             empreendimento.NomeEmpreendedor = dto.NomeEmpreendedor;
             empreendimento.Municipio = dto.Municipio;
-            empreendimento.Segmento = dto.Segmento;
+            empreendimento.Segmento = (Segmento)dto.Segmento;
             empreendimento.Email = dto.Email;
             empreendimento.Status = dto.Status;
             empreendimento.Telefone = dto.Telefone;

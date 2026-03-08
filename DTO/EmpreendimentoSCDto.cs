@@ -15,7 +15,7 @@ namespace CRUDEmpreendimentosSC.DTO
         public string Municipio { get; set; }
 
         [Required]
-        public Segmento Segmento { get; set; }
+        public int Segmento { get; set; }
 
         [Required]
         [EmailAddress]
