@@ -21,17 +21,43 @@ namespace CRUDEmpreendimentosSC.Controllers
         // Buscar todos os empreendimentos
         // GET: api/Empreendimentos
         /// <summary>
-        /// Lista todos os empreendimentos cadastrados.
+        /// Lista todos os empreendimentos cadastrados, de forma paginada.
         /// </summary>
         /// <remarks>
         /// Retorna a lista completa de empreendimentos registrados no sistema.
         /// </remarks>
-        /// <returns>Lista de empreendimentos</returns>
+        /// <param name="page">Número da página</param>
+        /// <param name="pageSize">Quantidade de registros por página (máximo 100)</param>
+        /// <returns>Lista de empreendimentos paginada</returns>
         /// <response code="200">Lista retornada com sucesso</response>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmpreendimentoSC>>> Get()
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<EmpreendimentoSC>>> GetPaginado(int page = 1, int pageSize = 100)
         {
-            return await _context.EmpreendimentosSC.ToListAsync();
+            if (page <= 0)
+                page = 1;
+
+            if (pageSize <= 0)
+                pageSize = 10;
+
+            if (pageSize > 100)
+                pageSize = 100;
+
+            var query = _context.EmpreendimentosSC.AsQueryable();
+
+            var total = await query.CountAsync();
+
+            var empreendimentos = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return Ok(new
+            {
+                total,
+                page,
+                pageSize,
+                dados = empreendimentos
+            });
         }
 
         // Buscar um empreendimento por ID
