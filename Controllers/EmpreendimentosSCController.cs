@@ -28,12 +28,14 @@ namespace CRUDEmpreendimentosSC.Controllers
         /// <remarks>
         /// Retorna a lista completa de empreendimentos registrados no sistema.
         /// </remarks>
+        /// <param name="municipio">Filtro por município (contém)</param>
+        /// <param name="segmento">Filtro por segmento</param>
         /// <param name="page">Número da página</param>
         /// <param name="pageSize">Quantidade de registros por página (máximo 100)</param>
         /// <returns>Lista de empreendimentos paginada</returns>
         /// <response code="200">Lista retornada com sucesso</response>
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<EmpreendimentoSC>>> GetPaginado(int page = 1, int pageSize = 100)
+        public async Task<ActionResult<IEnumerable<EmpreendimentoSC>>> Get([FromQuery] string? municipio, [FromQuery] int? segmento, int page = 1, int pageSize = 100)
         {
             if (page <= 0)
                 page = 1;
@@ -45,6 +47,20 @@ namespace CRUDEmpreendimentosSC.Controllers
                 pageSize = 100;
 
             var query = _context.EmpreendimentosSC.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(municipio))
+            {
+                query = query.Where(e => e.Municipio.ToLower().Contains(municipio.ToLower()));
+            }
+
+            if (segmento.HasValue)
+            {
+                if (!Enum.IsDefined(typeof(Segmento), segmento.Value))
+                    throw new ArgumentException("Segmento inválido.");
+
+                query = query.Where(e => e.Segmento == (Segmento)segmento.Value);
+            }
+
 
             var total = await query.CountAsync();
 
