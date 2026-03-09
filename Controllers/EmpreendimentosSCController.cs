@@ -34,7 +34,9 @@ namespace CRUDEmpreendimentosSC.Controllers
             var empreendimento = await _context.EmpreendimentosSC.FindAsync(id);
 
             if (empreendimento == null)
-                return NotFound();
+            {
+                throw new KeyNotFoundException("Empreendimento não encontrado.");
+            }
 
             return empreendimento;
         }
@@ -47,10 +49,11 @@ namespace CRUDEmpreendimentosSC.Controllers
 
             if (!Enum.IsDefined(typeof(Segmento), dto.Segmento))
             {
-                return BadRequest(new
-                {
-                    mensagem = "Segmento inválido. Valores permitidos: 1-Tecnologia, 2-Comércio, 3-Indústria, 4-Serviços, 5-Agronegócio."
-                });
+                var valores = Enum.GetValues(typeof(Segmento))
+                                 .Cast<Segmento>()
+                                 .Select(x => $"{(int)x}-{x}");
+
+                throw new ArgumentException($"Segmento inválido. Valores permitidos: {string.Join(", ", valores)}");
             }
 
             var empreendimento = new EmpreendimentoSC
@@ -81,14 +84,17 @@ namespace CRUDEmpreendimentosSC.Controllers
             var empreendimento = await _context.EmpreendimentosSC.FindAsync(id);
 
             if (empreendimento == null)
-                return NotFound();
+            {
+                throw new KeyNotFoundException("Empreendimento não encontrado.");
+            }
 
             if (!Enum.IsDefined(typeof(Segmento), dto.Segmento))
             {
-                return BadRequest(new
-                {
-                    mensagem = "Segmento inválido. Valores permitidos: 1-Tecnologia, 2-Comércio, 3-Indústria, 4-Serviços, 5-Agronegócio."
-                });
+                var valores = Enum.GetValues(typeof(Segmento))
+                                 .Cast<Segmento>()
+                                 .Select(x => $"{(int)x}-{x}");
+
+                throw new ArgumentException($"Segmento inválido. Valores permitidos: {string.Join(", ", valores)}");
             }
 
             empreendimento.NomeEmpreendimento = dto.NomeEmpreendimento;
@@ -115,7 +121,9 @@ namespace CRUDEmpreendimentosSC.Controllers
             var empreendimento = await _context.EmpreendimentosSC.FindAsync(id);
 
             if (empreendimento == null)
-                return NotFound();
+            {
+                throw new KeyNotFoundException("Empreendimento não encontrado.");
+            }
 
             _context.EmpreendimentosSC.Remove(empreendimento);
 
