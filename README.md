@@ -124,10 +124,10 @@ GET /api/empreendimentos/estatisticas
 
 Retorna dados agregados como:
 
-	- Total de empreendimentos
-	- Quantidade de empreendimentos ativos/inativos
-	- Distribuição por segmento
-	- Distribuição por município
+- Total de empreendimentos
+- Quantidade de empreendimentos ativos/inativos
+- Distribuição por segmento
+- Distribuição por município
 
 ---
 
