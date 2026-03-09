@@ -20,6 +20,14 @@ namespace CRUDEmpreendimentosSC.Controllers
 
         // Buscar todos os empreendimentos
         // GET: api/Empreendimentos
+        /// <summary>
+        /// Lista todos os empreendimentos cadastrados.
+        /// </summary>
+        /// <remarks>
+        /// Retorna a lista completa de empreendimentos registrados no sistema.
+        /// </remarks>
+        /// <returns>Lista de empreendimentos</returns>
+        /// <response code="200">Lista retornada com sucesso</response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EmpreendimentoSC>>> Get()
         {
@@ -28,6 +36,16 @@ namespace CRUDEmpreendimentosSC.Controllers
 
         // Buscar um empreendimento por ID
         // GET: api/Empreendimentos/id
+        /// <summary>
+        /// Retorna um empreendimento pelo identificador.
+        /// </summary>
+        /// <remarks>
+        /// Retorna um único empreendimento a partir do identificador único (Id).
+        /// </remarks>
+        /// <param name="id">Identificador único do empreendimento</param>
+        /// <returns>Dados do empreendimento</returns>
+        /// <response code="200">Empreendimento encontrado</response>
+        /// <response code="404">Empreendimento não encontrado</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<EmpreendimentoSC>> Get(int id)
         {
@@ -43,6 +61,16 @@ namespace CRUDEmpreendimentosSC.Controllers
 
         // Criar um novo empreendimento
         // POST: api/Empreendimentos
+        /// <summary>
+        /// Cadastra um novo empreendimento.
+        /// </summary>
+        /// <remarks>
+        /// Cadastra um empreendimento a partir dos dados informados. Tem como retorno, os dados cadastrados e o identificador único, necessário para manipular o registro posteriormente.
+        /// </remarks>
+        /// <param name="dto">Objeto contendo os dados do empreendimento</param>
+        /// <returns>Empreendimento criado</returns>
+        /// <response code="201">Empreendimento criado com sucesso</response>
+        /// <response code="400">Dados inválidos informados</response>
         [HttpPost]
         public async Task<ActionResult> Post(EmpreendimentoSCDto dto)
         {
@@ -78,6 +106,18 @@ namespace CRUDEmpreendimentosSC.Controllers
 
         // Atualizar um empreendimento existente
         // PUT: api/Empreendimentos/id
+        /// <summary>
+        /// Atualiza os dados de um empreendimento existente.
+        /// </summary>
+        /// <remarks>
+        /// Atualiza os dados de um empreendimento existente, a partir da informação do identificador único.
+        /// </remarks>
+        /// <param name="id">Identificador do empreendimento</param>
+        /// <param name="dto">Dados atualizados do empreendimento</param>
+        /// <returns>Nenhum conteúdo</returns>
+        /// <response code="204">Empreendimento atualizado com sucesso</response>
+        /// <response code="400">Dados inválidos informados</response>
+        /// <response code="404">Empreendimento não encontrado</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, EmpreendimentoSCDto dto)
         {
@@ -115,6 +155,16 @@ namespace CRUDEmpreendimentosSC.Controllers
 
         // Excluir um empreendimento
         // DELETE: api/Empreendimentos/id
+        /// <summary>
+        /// Remove um empreendimento do sistema.
+        /// </summary>
+        /// <remarks>
+        /// Remove um empreendimento a partir do identificador único.
+        /// </remarks>
+        /// <param name="id">Identificador do empreendimento</param>
+        /// <returns>Nenhum conteúdo</returns>
+        /// <response code="204">Empreendimento removido com sucesso</response>
+        /// <response code="404">Empreendimento não encontrado</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

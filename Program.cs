@@ -4,6 +4,7 @@ using Microsoft.OpenApi;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using CRUDEmpreendimentosSC.Middleware;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,14 +17,19 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data S
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+builder.Services.AddSwaggerGen(c =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "API Empreendimentos SC",
         Version = "v1",
-        Description = "API para gerenciamento de empreendimentos em Santa Catarina"
+        Description = "API REST para gerenciamento de empreendimentos em Santa Catarina"
     });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+    c.IncludeXmlComments(xmlPath);
 });
 
 var app = builder.Build();
