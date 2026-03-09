@@ -1,10 +1,10 @@
 using CRUDEmpreendimentosSC.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using CRUDEmpreendimentosSC.Middleware;
 using System.Reflection;
+using CRUDEmpreendimentosSC.Seed;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,5 +52,14 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    context.Database.Migrate();
+
+    DbInitializer.Initialize(context);
+}
 
 app.Run();
