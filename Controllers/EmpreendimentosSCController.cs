@@ -4,6 +4,8 @@ using CRUDEmpreendimentosSC.Enums;
 using CRUDEmpreendimentosSC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Filters;
+using CRUDEmpreendimentosSC.Examples;
 
 namespace CRUDEmpreendimentosSC.Controllers
 {
@@ -98,6 +100,7 @@ namespace CRUDEmpreendimentosSC.Controllers
         /// <response code="201">Empreendimento criado com sucesso</response>
         /// <response code="400">Dados inválidos informados</response>
         [HttpPost]
+        [SwaggerRequestExample(typeof(EmpreendimentoSCDto), typeof(EmpreendimentoExample))]
         public async Task<ActionResult> Post(EmpreendimentoSCDto dto)
         {
 
@@ -145,6 +148,7 @@ namespace CRUDEmpreendimentosSC.Controllers
         /// <response code="400">Dados inválidos informados</response>
         /// <response code="404">Empreendimento não encontrado</response>
         [HttpPut("{id}")]
+        [SwaggerRequestExample(typeof(EmpreendimentoSCDto), typeof(EmpreendimentoExample))]
         public async Task<IActionResult> Put(int id, EmpreendimentoSCDto dto)
         {
             var empreendimento = await _context.EmpreendimentosSC.FindAsync(id);

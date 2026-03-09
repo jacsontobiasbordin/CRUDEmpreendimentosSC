@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using CRUDEmpreendimentosSC.Middleware;
 using System.Reflection;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,11 @@ builder.Services.AddSwaggerGen(c =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
     c.IncludeXmlComments(xmlPath);
+
+    c.ExampleFilters();
 });
+
+builder.Services.AddSwaggerExamplesFromAssemblyOf<Program>();
 
 var app = builder.Build();
 
