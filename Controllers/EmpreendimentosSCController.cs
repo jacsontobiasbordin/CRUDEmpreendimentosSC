@@ -103,6 +103,58 @@ namespace CRUDEmpreendimentosSC.Controllers
             return empreendimento;
         }
 
+        /// <summary>
+        /// Retorna dados estatísticos dos empreendimentos cadastrados.
+        /// </summary>
+        /// <remarks>
+        /// Retorna informações agregadas como:
+        /// total de empreendimentos,
+        /// quantidade de ativos e inativos,
+        /// distribuição por segmento
+        /// e distribuição por município.
+        /// </remarks>
+        /// <returns>Dados estatísticos</returns>
+        /// <response code="200">Estatísticas retornadas com sucesso</response>
+        [HttpGet("estatisticas")]
+        public async Task<IActionResult> GetEstatisticas()
+        {
+            var total = await _context.EmpreendimentosSC.CountAsync();
+
+            var ativos = await _context.EmpreendimentosSC
+                .Where(e => e.Status)
+                .CountAsync();
+
+            var inativos = total - ativos;
+
+            var porSegmento = await _context.EmpreendimentosSC
+                .GroupBy(e => e.Segmento)
+                .Select(g => new
+                {
+                    segmento = g.Key.ToString(),
+                    quantidade = g.Count()
+                })
+                .ToListAsync();
+
+            var porMunicipio = await _context.EmpreendimentosSC
+                .GroupBy(e => e.Municipio)
+                .Select(g => new
+                {
+                    municipio = g.Key,
+                    quantidade = g.Count()
+                })
+                .OrderByDescending(x => x.quantidade)
+                .ToListAsync();
+
+            return Ok(new
+            {
+                totalEmpreendimentos = total,
+                ativos,
+                inativos,
+                porSegmento,
+                porMunicipio
+            });
+        }
+
         // Criar um novo empreendimento
         // POST: api/Empreendimentos
         /// <summary>
