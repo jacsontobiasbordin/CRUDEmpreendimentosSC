@@ -145,17 +145,7 @@ Abrir o arquivo da solução no Visual Studio.
 
 ---
 
-### 3 - Para criar o banco
-
-No Package Manager Console:
-
-
-Add-Migration InitialCreate
-Update-Database
-
----
-
-### 4 - Executar aplicação
+### 3 - Executar aplicação
 
 Pressionar:
 
@@ -163,19 +153,19 @@ F5
 
 ---
 
-### 5 - Acessar documentação da API
+### 4 - Acessar documentação da API
 
 A documentação é gerada automaticamente com Swagger.
 
-Após iniciar a aplicação, acessar:
+Após executar a aplicação, deve abrir uma página no navegador, com o seguinte endereço:
 
 https://localhost:xxxx/swagger
 
-O Swagger inclui exemplos automáticos de requisição para facilitar os testes.
+O Swagger inclui exemplos automáticos de requisições para os endpoints, para facilitar os testes.
 
 ---
 
-### 6 - Melhorias Implementadas
+## Melhorias Implementadas
 
 Além dos requisitos mínimos do desafio, foram implementadas algumas melhorias para tornar a API mais completa e próxima de um cenário real de produção:
 
@@ -195,7 +185,7 @@ Além dos requisitos mínimos do desafio, foram implementadas algumas melhorias 
 
 ## Autor
 
-Desenvolvido por  
+Desenvolvido por:
 Jacson Tobias Bordin
 
 ---
@@ -203,4 +193,6 @@ Jacson Tobias Bordin
 ## Vídeo Pitch
 
 Link do vídeo explicando a solução:
+https://youtu.be/2GuppKz2IPQ
+
 
