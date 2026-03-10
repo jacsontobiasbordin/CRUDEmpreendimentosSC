@@ -20,15 +20,15 @@ Este projeto foi desenvolvido como parte do projeto técnico do SCTEC, para o ED
 
 ## Estrutura do Projeto
 
-Controllers → endpoints da API
-Models → entidades do sistema
-DTOs → objetos de transferência de dados
-Enums → enumerações utilizadas no sistema
-Data → contexto de banco de dados
-Migrations → controle de versões do banco
-Middleware → tratamento global de exceções
-Seed → inicialização de dados
-Examples → exemplos de requisições para Swagger
+- **Controllers** → Endpoints da API  
+- **Models** → Entidades do sistema  
+- **DTOs** → Objetos de transferência de dados  
+- **Enums** → Enumerações utilizadas no sistema  
+- **Data** → Contexto de banco de dados  
+- **Migrations** → Controle de versões do banco  
+- **Middleware** → Tratamento global de exceções  
+- **Seed** → Inicialização de dados  
+- **Examples** → Exemplos de requisições para Swagger
 
 ---
 
@@ -51,6 +51,7 @@ Campos adicionais implementados:
 
 - Telefone
 - Observacao do empreendimento
+- Porte da Empresa
 - Data de cadastro
 
 ---
@@ -61,15 +62,10 @@ Campos adicionais implementados:
 
 GET /api/empreendimentos
 
-O endpoint permite filtrar empreendimentos por parâmetros de consulta:
+O endpoint permite filtrar empreendimentos por município e/ou segmento.
+Também possui paginação (opcional). Se não informados os parâmetros de paginação, assume a página 1, com limite máximo de 100 registros por página.
 
-GET /api/empreendimentos?municipio=Joinville
-GET /api/empreendimentos?segmento=1
-GET /api/empreendimentos?municipio=Joinville&segmento=1
-
-O endpoint também possui paginação (opcional). Se não informados os parâmetros de paginação, assume a página 1 com limite máximo de 100 registros por página:
-
-GET /api/empreendimentos?page=1&pageSize=50
+GET /api/empreendimentos?municipio=Joinville&segmento=1&page=1&pageSize=50
 
 ---
 
@@ -186,6 +182,7 @@ Além dos requisitos mínimos do desafio, foram implementadas algumas melhorias 
 ## Autor
 
 Desenvolvido por:
+
 Jacson Tobias Bordin
 
 ---
@@ -193,6 +190,7 @@ Jacson Tobias Bordin
 ## Vídeo Pitch
 
 Link do vídeo explicando a solução:
+
 https://youtu.be/2GuppKz2IPQ
 
 
