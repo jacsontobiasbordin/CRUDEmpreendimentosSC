@@ -39,11 +39,11 @@ Examples → exemplos de requisições para Swagger
 - Nome do empreendedor responsável
 - Município de Santa Catarina
 - Segmento de atuação
-    - 1. Tecnologia
-    - 2. Comércio
-    - 3. Indústria
-    - 4. Serviços
-    - 5. Agronegócio
+    - 1 - Tecnologia
+    - 2 - Comércio
+    - 3 - Indústria
+    - 4 - Serviços
+    - 5 - Agronegócio
 - Email 
 - Status (ativo ou inativo)
 
@@ -83,8 +83,7 @@ GET /api/empreendimentos/{id}
 
 POST /api/empreendimentos
 
-Exemplo:
-
+```json
 {
   "nomeEmpreendimento": "Tech Joinville",
   "nomeEmpreendedor": "João Silva",
@@ -96,7 +95,7 @@ Exemplo:
   "observacao": "Startup de tecnologia",
   "porteEmpresa": "Médio Porte",
   "website": "www.techjoinville.com.br"
-}
+}```
 
 ---
 
